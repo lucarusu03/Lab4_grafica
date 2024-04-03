@@ -11,6 +11,9 @@ void myInit()
 	glShadeModel(GL_FLAT);
 	theNurb = gluNewNurbsRenderer(); // obiectul de tip GLUnurbsObj este creat dinamic prin apelul functiei gluNewNurbsRenderer()
 	gluNurbsProperty(theNurb, GLU_SAMPLING_TOLERANCE, 10.0); // eroarea de esantionare a curbei la redare
+	glLineStipple(1, 0x0F0F);
+	glPointSize(5);
+
 }
 
 void CALLBACK display()
@@ -18,22 +21,28 @@ void CALLBACK display()
 	glLoadIdentity();
 
 	// 4 puncte de control
-	GLfloat ctlpoints[4][3] = {
-		{-.75, -.75, 0.0},
-		{-.5, .75, 0.0},
-		{.5, .75, 0.0},
-		{.75, -.75, 0.0}
+	GLfloat ctlpoints[9][3] = {
+		{-1, -2, 0.0},
+		{-2.5,-1.0, 0.0},
+		{-3, 0.5, 0.0},
+		{-1.5, 2.0, 0.0},
+		{0, 3, 0.0},
+		{1.5, 2.5, 0.0},
+		{2.5, 1.5, 0.0},
+		{2,-1,0},
+		{-1.5,1.75,0}
+		
 	};
 
 	// 8 noduri
-	GLfloat knots[8] = { 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0 };
-	//   GLfloat knots[8] = {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0};
+	GLfloat knots[13] = { 0.0, 0.0, 0.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 6.0, 6.0, 6.0};
+	//GLfloat knots[8] = {0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0};
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.0, 1.0, 1.0); // culoarea curenta de desenare
 	// incepe corpul de redare al curbei Spline
 	gluBeginCurve(theNurb);
 	gluNurbsCurve(theNurb,	// pointer obiect NURBS
-		8, knots,			// numar noduri, tablou noduri
+		13, knots,			// numar noduri, tablou noduri
 		sizeof(ctlpoints[0]) / sizeof(GLfloat), // intervalul de valori dintre doua puncte de control consecutive
 		&ctlpoints[0][0],	// vector puncte de control
 		4,					// ordinul curbei 

@@ -9,7 +9,10 @@
 
 GLfloat ctrlpoints[4][3] = {
 	// coordonatele celor 4 puncte de control
-	{ -4.0, -4.0, 0.0}, { -2.0, 4.0, 0.0}, {2.0, -4.0, 0.0}, {4.0, 4.0, 0.0} };
+	{ -6.0, 1.0, -1.0}, { -5.0, 5.0, 0.0}, {-1.0, 5.0, 0.0}, {0.0, 1.0, -1.0} };
+GLfloat ctrlpoints2[4][3] = {
+	// coordonatele celor 4 puncte de control
+	{ 0.0, 1.0, -1.0}, { 1.0, -4.0, 0.0}, {5.0, -4.0, 0.0}, {6.0, 1.0, -1.0} };
 
 void myInit()
 {
@@ -40,8 +43,17 @@ void CALLBACK display(void)
 	}
 	glEnd();
 
+	glMap1f(GL_MAP1_VERTEX_3, 0, 1, 3, 4, &ctrlpoints2[0][0]);
+	glBegin(GL_LINE_STRIP); // se deseneaza curba prin segmente de dreapta
+	{
+		for (int i = 0; i <= 30; i++) {
+			glEvalCoord1f((GLfloat)i / 30.0f); // pentru cele 30 varfuri determinate de functia glEvalCoord1f
+		}
+	}
+	glEnd();
+
 	// se afiseaza punctele de control
-	glPointSize(5.0f);
+	/*glPointSize(5.0f);
 	glColor3f(1.0f, 0.0f, 0.0f);
 	glBegin(GL_POINTS);
 	{
@@ -49,10 +61,10 @@ void CALLBACK display(void)
 			glVertex3fv(&ctrlpoints[i][0]);
 		}
 	}
-	glEnd();
+	glEnd();*/
 
 	// se afiseaza poligonul caracteristic
-	glColor3f(1.0f, 0.0f, 1.0f);
+	/*glColor3f(1.0f, 0.0f, 1.0f);
 	glEnable(GL_LINE_STIPPLE);
 	glBegin(GL_LINE_STRIP);
 	{
@@ -61,7 +73,7 @@ void CALLBACK display(void)
 		}
 	}
 	glEnd();
-	glDisable(GL_LINE_STIPPLE);
+	glDisable(GL_LINE_STIPPLE);*/
 
 	glFlush();
 }
