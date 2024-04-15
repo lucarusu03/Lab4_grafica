@@ -9,14 +9,22 @@
 
 // tabloul ctrlpoints defineste cele 16 puncte de control ale suprafetei
 GLfloat ctrlpoints[4][4][3] = {
-    {{-1.5, -1.5, 4.0}, {-0.5, -1.5, 2.0}, 
-    {0.5, -1.5, -1.0}, {1.5, -1.5, 2.0}}, 
-    {{-1.5, -0.5, 1.0}, {-0.5, -0.5, 3.0}, 
-    {0.5, -0.5, 0.0}, {1.5, -0.5, -1.0}}, 
-    {{-1.5, 0.5, 4.0}, {-0.5, 0.5, 0.0}, 
-    {0.5, 0.5, 3.0}, {1.5, 0.5, 4.0}}, 
-    {{-1.5, 1.5, -2.0}, {-0.5, 1.5, -2.0}, 
-    {0.5, 1.5, 0.0}, {1.5, 1.5, -1.0}}
+     {{-2, -2.5, 2.0}, {-2, -3, 2.0}, {2, -3, 2.0}, {2, -2.5, 2.0}},
+
+    {{-4, -2, 2.0}, {-1, -0.5, -6.0}, {1, -0.5, -6.0}, {4, -2, 2.0}},
+
+    {{-4, 2, 2.0}, {-1, 0.5, -6.0}, {1, 0.5, -6.0}, {4, 2, 2.0}},
+
+    {{-2, 2.5, 2.0}, {-2, 3, 2.0}, {2, 3, 2.0}, {2, 2.5, 2.0}}
+};
+GLfloat ctrlpoints2[4][4][3] = {
+     {{-2, -2.5, 2.0}, {-2, -3, 2.0}, {2, -3, 2.0}, {2, -2.5, 2.0}},
+
+    {{-4, -2, 2.0}, {-1, -0.5, 8.0}, {1, -0.5, 8.0}, {4, -2, 2.0}},
+
+    {{-4, 2, 2.0}, {-1, 0.5, 8.0}, {1, 0.5, 8.0}, {4, 2, 2.0}},
+
+    {{-2, 2.5, 2.0}, {-2, 3, 2.0}, {2, 3, 2.0}, {2, 2.5, 2.0}}
 };
 
 // setari pentru iluminarea suprafetei
@@ -55,9 +63,10 @@ void CALLBACK display()
     // - numarul punctelor de control pe directia v
     // - tabloul punctelor de control
     glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, &ctrlpoints[0][0][0]);
+    glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4, 0, 1, 12, 4, &ctrlpoints2[0][0][0]);
     glMapGrid2f(20, 0.0, 1.0, 20, 0.0, 1.0);// intervalele de esantionare a suprafetei pentru parametrii u si v
     glEvalMesh2(GL_FILL, 0, 20, 0, 20); // modul de redare al poligoanelor (GL_FILL, GL_POINT, GL_LINE) si intervalele de esantionare a suprafetei pentru u si v
-
+    
     glFlush();
 }
 
